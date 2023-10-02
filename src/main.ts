@@ -4,7 +4,7 @@ import KeyGenerator from './keyGenerator';
 import ComputerMoves from './computerMoves';
 import HashGenerator from './hashGenerator';
 import GameStateCalculator from './gameStateCalculator';
-import type { GameStateType } from './gameStateCalculator';
+import type { GameLog } from './gameStateCalculator';
 import TableCreator from './tableCreator';
 
 export default class Main {
@@ -20,7 +20,7 @@ export default class Main {
     private computerMove: string;
     private playerMoveInd: number;
     private hmac: string;
-    private gameResult: GameStateType;
+    private gameLog: GameLog;
     private tableData: string[][];
 
     constructor(args: string[]) {
@@ -36,8 +36,14 @@ export default class Main {
         this.computerMove = '';
         this.playerMoveInd = NaN;
         this.hmac = '';
-        this.gameResult = 'Draw';
         this.tableData = [];
+        this.gameLog = {
+            rules: this.args,
+            playerMoveInd: this.playerMoveInd,
+            computerMoveInd: this.computerMoveInd,
+            result: 'Draw',
+            time: '',
+        };
     }
 
     public play() {
@@ -117,7 +123,8 @@ export default class Main {
     }
 
     private getGameResult() {
-        this.gameResult = this.gameStateCalculator.resolveGame(
+        this.gameLog = this.gameStateCalculator.logResult(
+            this.args,
             this.computerMoveInd,
             this.playerMoveInd
         );
@@ -125,7 +132,7 @@ export default class Main {
 
     private showResultMessage() {
         console.log(`Computer move was: ${this.computerMove}\n`);
-        switch (this.gameResult) {
+        switch (this.gameLog.result) {
             case 'Win':
                 console.log('Congratulations, you WIN!');
                 break;
@@ -145,7 +152,13 @@ export default class Main {
         this.computerMove = '';
         this.playerMoveInd = NaN;
         this.hmac = '';
-        this.gameResult = 'Draw';
+        this.gameLog = {
+            rules: this.args,
+            playerMoveInd: this.playerMoveInd,
+            computerMoveInd: this.computerMoveInd,
+            result: 'Draw',
+            time: '',
+        };
         const index = readlineSync.keyInSelect(['Same rules', 'New rules'], '', {
             cancel: false,
         });
