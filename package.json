@@ -1,0 +1,28 @@
+{
+    "name": "task3",
+    "version": "1.0.0",
+    "description": "extended rock-paper-scissors game",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "ts-node src/index.ts",
+        "lint": "eslint . --ext .ts"
+    },
+    "keywords": [],
+    "author": "Konstantin Danovich",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.8.0",
+        "@typescript-eslint/eslint-plugin": "^6.7.3",
+        "@typescript-eslint/parser": "^6.7.3",
+        "eslint": "^8.50.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@types/readline-sync": "^1.4.5",
+        "eslint-config-prettier": "^9.0.0",
+        "readline-sync": "^1.4.10",
+        "table": "^6.8.1"
+    }
+}
